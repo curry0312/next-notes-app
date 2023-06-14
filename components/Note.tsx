@@ -1,6 +1,5 @@
 import { notesType } from "@/app/page";
 import Link from "next/link";
-import React from "react";
 
 type NoteProps = {
   note: notesType;

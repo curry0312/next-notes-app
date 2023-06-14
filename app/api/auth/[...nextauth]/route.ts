@@ -1,6 +1,7 @@
 import { connectToDB } from "@/db/connectToDB";
 import User from "@/models/user";
 import type { NextAuthOptions } from "next-auth";
+import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -34,6 +35,8 @@ export const authOptions: NextAuthOptions = {
           const loginUser = await User.findOne({
             email: credentials?.email,
           });
+          const match = await bcrypt.compare(String(credentials?.password),loginUser?.password)
+          if(!match) return
           return loginUser;
         } catch (error) {
           console.log(error);

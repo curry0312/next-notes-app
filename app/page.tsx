@@ -61,7 +61,7 @@ export default function Home() {
         <input
           type="text"
           placeholder="Search the notes..."
-          className="input w-[50%]"
+          className="input w-[50%] font-Nunito"
           onChange={(e) => setFilteredText(e.target.value)}
         />
       </div>

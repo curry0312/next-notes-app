@@ -8,6 +8,7 @@ import avator from "../public/avator.jpg";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
@@ -24,12 +25,12 @@ export default function Navbar() {
   }, [session]);
 
   return (
-    <nav className="flex justify-between items-center bg-white px-4 py-4">
+    <nav className="flex items-center justify-between bg-white px-4 py-4">
       {/*Logo*/}
       <div className="flex items-center">
         <Link
           href={"/"}
-          className="flex items-center font-bold text-black text-3xl"
+          className="flex items-center text-3xl font-bold text-black"
         >
           <Image
             src={logo}
@@ -52,7 +53,12 @@ export default function Navbar() {
               <Link href={"/profile"} className="nav_link">
                 Profile
               </Link>
-              <button className="nav_link" onClick={() => signOut()}>
+              <button
+                className="nav_link"
+                onClick={() => {
+                  signOut();
+                }}
+              >
                 Sign Out
               </button>
             </div>
@@ -74,8 +80,8 @@ export default function Navbar() {
                   sx={{ color: "black" }}
                   className={
                     isMobileMenuDropDown === true
-                      ? "transition duration-300 ease-in-out rotate-180"
-                      : "transition duration-300 ease-in-out rotate-0"
+                      ? "rotate-180 transition duration-300 ease-in-out"
+                      : "rotate-0 transition duration-300 ease-in-out"
                   }
                 />
               </div>
@@ -85,8 +91,8 @@ export default function Navbar() {
           <div
             className={
               isMobileMenuDropDown === true
-                ? "fixed top-16 right-0 flex flex-col items-end gap-2 p-5 bg-white translate-y-0 transition duration-300 ease-in-out sm:hidden"
-                : "fixed top-16 right-0 flex flex-col items-end gap-2 p-5 bg-white -translate-y-[200%] transition duration-300 ease-in-out sm:hidden"
+                ? "fixed right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
+                : "fixed right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
             }
           >
             <Link href={"/note/createNote"} className="nav_link">
@@ -117,8 +123,8 @@ export default function Navbar() {
                 sx={{ color: "black" }}
                 className={
                   isMobileMenuDropDown === true
-                    ? "transition duration-300 ease-in-out rotate-180"
-                    : "transition duration-300 ease-in-out rotate-0"
+                    ? "rotate-180 transition duration-300 ease-in-out"
+                    : "rotate-0 transition duration-300 ease-in-out"
                 }
               />
             </div>
@@ -154,8 +160,8 @@ export default function Navbar() {
                   sx={{ color: "black" }}
                   className={
                     isMobileMenuDropDown === true
-                      ? "transition duration-300 ease-in-out rotate-180"
-                      : "transition duration-300 ease-in-out rotate-0"
+                      ? "rotate-180 transition duration-300 ease-in-out"
+                      : "rotate-0 transition duration-300 ease-in-out"
                   }
                 />
               </div>
@@ -165,8 +171,8 @@ export default function Navbar() {
           <div
             className={
               isMobileMenuDropDown === true
-                ? "fixed top-16 right-0 flex flex-col items-end gap-2 p-5 bg-white translate-y-0 transition duration-300 ease-in-out sm:hidden"
-                : "fixed top-16 right-0 flex flex-col items-end gap-2 p-5 bg-white -translate-y-[200%] transition duration-300 ease-in-out sm:hidden"
+                ? "fixed right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
+                : "fixed right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
             }
           >
             <button className="nav_link" onClick={() => signIn()}>
@@ -194,8 +200,8 @@ export default function Navbar() {
                 sx={{ color: "black" }}
                 className={
                   isMobileMenuDropDown === true
-                    ? "transition duration-300 ease-in-out rotate-180"
-                    : "transition duration-300 ease-in-out rotate-0"
+                    ? "rotate-180 transition duration-300 ease-in-out"
+                    : "rotate-0 transition duration-300 ease-in-out"
                 }
               />
             </div>

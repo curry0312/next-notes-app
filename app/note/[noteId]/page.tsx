@@ -1,9 +1,11 @@
 "use client";
 
 import { notesType } from "@/app/page";
+import { IconButton } from "@mui/material";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 export type Option = {
   id: string;
@@ -27,21 +29,26 @@ export default function page() {
   }, []);
 
   return (
-    <div className="font-Nunito min-h-screen">
+    <div className="relative min-h-screen font-Nunito">
+      <Link href={".."}>
+        <IconButton className="absolute right-2 top-2 text-white">
+          <CloseIcon sx={{ fontSize: "40px" }} />
+        </IconButton>
+      </Link>
       {/*note content*/}
-      <div className="flex flex-col px-4 py-4 bg-blue-600 min-h-screen">
-        <h1 className="text-white text-5xl font-bold font-Nunito break-words">
+      <div className="flex min-h-screen flex-col bg-blue-600 px-4 py-4">
+        <h1 className="break-words font-Nunito text-5xl font-bold text-white">
           {note?.title}
         </h1>
-        <p className="text-white text-3xl font-Nunito break-words my-4">
+        <p className="my-4 break-words font-Nunito text-3xl text-white">
           {note?.description}
         </p>
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex flex-wrap items-center gap-2">
           {note?.tags?.map((tag) => {
             return (
               <span
                 key={tag.id}
-                className="px-4 py-1 bg-blue-400 rounded-xl font-bold font-Nunito"
+                className="rounded-xl bg-blue-400 px-4 py-1 font-Nunito font-bold"
               >
                 {tag.label}
               </span>
@@ -50,7 +57,7 @@ export default function page() {
         </div>
         <Link
           href={`/note/updateNote/${note?.noteId}`}
-          className="self-start mt-auto px-4 py-2 rounded-lg text-white border border-white hover:bg-slate-500 hover:text-white transtion duration-300 ease-in-out"
+          className="transtion mt-auto self-start rounded-lg border border-white px-4 py-2 text-white duration-300 ease-in-out hover:bg-white hover:text-blue-600"
         >
           Edit Note
         </Link>
