@@ -1,6 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .nav_link{
+    @apply py-2 px-4 rounded-full text-black border-black border hover:bg-black hover:text-white
+  }
+  .input{
+    @apply p-2 rounded-xl text-black
+  }
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
