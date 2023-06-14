@@ -3,7 +3,7 @@
 import Note from "@/components/Note";
 import { getUserId } from "@/lib/getUserId";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export type tag = {
   id: string;
@@ -24,7 +24,10 @@ export default function Home() {
   const [filteredText, setFilteredText] = useState<string>("");
 
   const filteredNotes = notes.filter((note) => {
-    return (filteredText === "" || note.title.toLowerCase().includes(filteredText.toLowerCase()))
+    return (
+      filteredText === "" ||
+      note.title.toLowerCase().includes(filteredText.toLowerCase())
+    );
   });
 
   const { data: session } = useSession();
@@ -54,7 +57,7 @@ export default function Home() {
         </span>
       </div>
       {/*search bar section*/}
-      <div className="flex justify-center items-center py-5">
+      <div className="flex items-center justify-center py-5">
         <input
           type="text"
           placeholder="Search the notes..."
@@ -63,7 +66,7 @@ export default function Home() {
         />
       </div>
       {/*Notes display section*/}
-      <div className="grid grid-cols-1 gap-4 text-white px-4 py-5 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+      <div className="grid grid-cols-1 gap-4 px-4 py-5 text-white sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
         {notes.length !== 0 &&
           filteredNotes.map((note) => {
             return <Note key={note.noteId} note={note} />;

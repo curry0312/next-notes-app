@@ -13,26 +13,26 @@ export type Option = {
 
 export default function page() {
   const [values, setValues] = useState<Option[]>([]);
-  const [userId, setUserId] = useState<string>("")
+  const [userId, setUserId] = useState<string>("");
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   const { data: session } = useSession();
 
   useEffect(() => {
-    async function get(){
-      if(session) {
-        const userId = await getUserId(session)
-        setUserId(userId)
+    async function get() {
+      if (session) {
+        const userId = await getUserId(session);
+        setUserId(userId);
       }
     }
-    get()
+    get();
   }, [session]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     try {
-      await fetch("http://localhost:3000/api/note/creatNote", {
+      await fetch("http://localhost:3000/api/note/createNote", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export default function page() {
 
         <button
           type="submit"
-          className="bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out"
+          className="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-300 hover:text-black transition duration-300 ease-in-out"
         >
           Create Note
         </button>

@@ -11,12 +11,12 @@ export default function Note({ note }: NoteProps) {
     <Link
       href={`/note/${note.noteId}`}
       key={note.noteId}
-      className="flex flex-col text-center px-4 py-4 bg-white rounded-2xl"
+      className="flex flex-col text-center px-4 py-4 bg-white rounded-2xl transtion duration-200 ease-in-out hover:scale-110"
     >
       <h1 className="text-black text-2xl font-bold font-Nunito break-words line-clamp-1">
         {note.title}
       </h1>
-      <p className="text-black font-Nunito break-words line-clamp-2 px-2 my-4">
+      <p className="text-black font-Nunito break-words line-clamp-3 px-2 my-4">
         {note.description}
       </p>
       <div className="flex items-center gap-2 flex-wrap mt-auto">

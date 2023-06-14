@@ -26,8 +26,8 @@ export default function page() {
       );
       const targetNote = await res.json();
       setNote(targetNote);
-      console.log(targetNote)
-      setValues(targetNote.tags)
+      console.log(targetNote);
+      setValues(targetNote.tags);
     }
   }, []);
 
@@ -96,8 +96,18 @@ export default function page() {
           Update Note
         </button>
         <div className="flex gap-5">
-          <Link href="/" className="flex-1 text-center bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out">Back to Home Page</Link>
-          <Link href={`/note/${note?.userId}`} className="flex-1 text-center bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out">Back to Note</Link>
+          <Link
+            href="/"
+            className="flex-1 text-center bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out"
+          >
+            Back to Home Page
+          </Link>
+          <Link
+            href={`/note/${note?.noteId}`}
+            className="flex-1 text-center bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out"
+          >
+            Back to Note
+          </Link>
         </div>
       </form>
     </div>
