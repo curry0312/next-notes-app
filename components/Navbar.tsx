@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import logo from "../public/logo.jpg";
-import avator from "../public/avator.jpg";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
@@ -62,7 +61,7 @@ export default function Navbar() {
               </button>
             </div>
             <button className="flex items-center">
-              <h2 className="font-extralight text-black">Hello! {session?.user?.username}</h2>
+              <h2 className="font-extralight text-black">Hello! {session?.user?.username || session?.user?.name}</h2>
               {/* <Image
                 src={avator}
                 alt="avator"
@@ -91,14 +90,14 @@ export default function Navbar() {
           <div
             className={
               isMobileMenuDropDown === true
-                ? "fixed right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
-                : "fixed right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
+                ? "absolute right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out z-10 sm:hidden"
+                : "absolute right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out z-10 sm:hidden"
             }
           >
-            <Link href={"/note/createNote"} className="nav_link">
+            <Link href={"/note/createNote"} className="nav_link" onClick={()=>setIsMenuDropDown(prev=>prev=!prev)}>
               Create Note
             </Link>
-            <Link href={"/profile"} className="nav_link">
+            <Link href={"/profile"} className="nav_link" onClick={()=>setIsMenuDropDown(prev=>prev=!prev)}>
               Profile
             </Link>
             <button className="nav_link" onClick={() => signOut()}>
@@ -106,7 +105,7 @@ export default function Navbar() {
             </button>
           </div>
           <button className="flex items-center sm:hidden">
-            <h2 className="font-extralight text-black">Welcomes! customer</h2>
+            <h2 className="font-extralight text-black">Hello! {session?.user?.username || session?.user?.name}</h2>
             {/* <Image
               src={avator}
               alt="avator"
@@ -173,14 +172,14 @@ export default function Navbar() {
           <div
             className={
               isMobileMenuDropDown === true
-                ? "fixed right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
-                : "fixed right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
+                ? "absolute right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
+                : "absolute right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
             }
           >
             <button className="nav_link" onClick={() => signIn()}>
               Sign In
             </button>
-            <Link href={"/register"} className="nav_link">
+            <Link href={"/register"} className="nav_link" onClick={()=>setIsMenuDropDown(prev=>prev=!prev)}>
               Register
             </Link>
           </div>

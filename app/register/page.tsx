@@ -7,9 +7,10 @@ import { ErrorMessage } from "@hookform/error-message";
 import convertToBase64 from "@/utili/convertToBase64";
 // import Image from "next/image";
 // import avator from "@/public/avator.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
+import { useSession } from "next-auth/react";
 
 const schema = yup.object().shape({
   email: yup.string().email().required("Email is required!"),
@@ -26,19 +27,25 @@ export default function page() {
     resolver: yupResolver(schema),
   });
 
-  const [base64Image, setBase64Image] = useState<string>("");
+  const {data:session} = useSession()
+
+  useEffect(()=>{
+    if(session) push("/")
+  },[session])
+
+  // const [base64Image, setBase64Image] = useState<string>("");
 
   const { push } = useRouter();
 
-  async function onUpload(e: any) {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setBase64Image(base64);
-  }
+  // async function onUpload(e: any) {
+  //   const base64 = await convertToBase64(e.target.files[0]);
+  //   setBase64Image(base64);
+  // }
 
   async function onSubmit(formdata: any) {
     const { email, password, username, image } = formdata;
     console.log("formdata:",formdata);
-    let userImage;
+    // let userImage;
     try {
       // if (!image[0]) {
       //   userImage = "";
@@ -66,10 +73,10 @@ export default function page() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="sm:flex sm:justify-center sm:items-center h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="min-w-[40%] min-h-[60%] mx-auto bg-green-500 px-4 py-4 flex flex-col gap-5 rounded-xl"
+        className="sm:min-w-[60%] sm:min-h-[60%] min-h-screen mx-auto bg-green-500 px-4 py-4 flex flex-col gap-5 sm:rounded-xl"
       >
         <h1 className="text-5xl font-bold text-center">Register</h1>
         <div className="flex flex-col">
@@ -126,7 +133,7 @@ export default function page() {
             onChange={onUpload}
           />
         </div> */}
-        <button className="bg-green-300 px-4 py-2 rounded-lg text-black font-bold mt-auto hover:bg-green-600">
+        <button className="bg-green-300 px-4 py-2 rounded-lg text-black font-bold sm:mt-auto hover:bg-green-600 hover:text-white duration-200 transtion ease-in-out">
           submit
         </button>
       </form>

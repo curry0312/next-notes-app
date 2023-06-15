@@ -35,10 +35,10 @@ export default function page() {
     descriptionRef.current!.value = "";
   }
   return (
-    <div className="flex min-h-screen items-center justify-center font-Nunito">
+    <div className="sm:flex sm:items-center sm:justify-center font-Nunito min-h-screen">
       <form
         onSubmit={handleSubmit}
-        className="flex min-w-[70%] flex-col gap-4 rounded-2xl bg-blue-500 px-5 py-10"
+        className="flex min-w-[100%] min-h-screen flex-col gap-4 bg-blue-500 px-5 py-10 sm:rounded-2xl sm:min-w-[70%] sm:min-h-0"
       >
         <div className="flex flex-col">
           <label htmlFor="title" className="text-xl font-bold">

@@ -15,6 +15,7 @@ const animatedComponents = makeAnimated();
 export default function ReactSelect({ tags, setTags }: ReactSelectProps) {
   return (
     <CreatableSelect
+      className="z-0"
       components={animatedComponents}
       isMulti
       options={tags.map((value: Tag) => {

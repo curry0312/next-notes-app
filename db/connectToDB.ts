@@ -9,7 +9,7 @@ export async function connectToDB() {
     console.log("MongoDB is already connected");
   } else {
     try {
-      const connect = await mongoose.connect(String(process.env.MONGO_URI));
+      const connect = await mongoose.connect(String(process.env.MONGODB_URI));
       isConnected = true;
       console.log("Mongodb is now connected!");
       return connect;

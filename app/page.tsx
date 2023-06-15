@@ -20,7 +20,6 @@ export type notesType = {
 
 export default function Home() {
   const [notes, setNotes] = useState<notesType[]>([]);
-  const [isUserLoginIn, setIsUserLogin] = useState<boolean>(false);
 
   const [filteredText, setFilteredText] = useState<string>("");
 
@@ -28,7 +27,6 @@ export default function Home() {
 
   useEffect(() => {
     if (session) {
-      setIsUserLogin((prev) => (prev = !prev));
       getAllNotes({ session, setNotes });
     }
   }, [session]);

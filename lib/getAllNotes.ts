@@ -11,7 +11,7 @@ export async function getAllNotes({
 }: getAllNotesParams):Promise<void> {
     try {
         const res = await fetch(
-          `http://localhost:3000/api/note/getNotes/${session?.user?.userId}`
+          `http://localhost:3000/api/note/getAllNotes/${session?.user?.userId}`
         );
         const userNotes = await res.json();
         console.log("userNotes:", userNotes);

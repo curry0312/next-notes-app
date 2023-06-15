@@ -7,8 +7,8 @@ export async function GET(
 ) {
   try {
     const userId = params.userId;
-    console.log(userId);
-    const notes = await Note.find({ userId });
+    console.log("userId:",userId);
+    const notes = await Note.find({userId});
     return new Response(JSON.stringify(notes), {
       status: 200,
       headers: {
