@@ -54,14 +54,16 @@ export default function Navbar() {
               <button
                 className="nav_link"
                 onClick={() => {
-                  signOut();
+                  signOut({ callbackUrl: "http://localhost:3000/" });
                 }}
               >
                 Sign Out
               </button>
             </div>
             <button className="flex items-center">
-              <h2 className="font-extralight text-black">Hello! {session?.user?.username || session?.user?.name}</h2>
+              <h2 className="font-extralight text-black">
+                Hello! {session?.user?.username || session?.user?.name}
+              </h2>
               {/* <Image
                 src={avator}
                 alt="avator"
@@ -90,22 +92,35 @@ export default function Navbar() {
           <div
             className={
               isMobileMenuDropDown === true
-                ? "absolute right-0 top-16 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out z-10 sm:hidden"
-                : "absolute right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out z-10 sm:hidden"
+                ? "absolute right-0 top-16 z-10 flex translate-y-0 flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
+                : "absolute right-0 top-16 z-10 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
             }
           >
-            <Link href={"/note/createNote"} className="nav_link" onClick={()=>setIsMenuDropDown(prev=>prev=!prev)}>
+            <Link
+              href={"/note/createNote"}
+              className="nav_link"
+              onClick={() => setIsMenuDropDown((prev) => (prev = !prev))}
+            >
               Create Note
             </Link>
-            <Link href={"/profile"} className="nav_link" onClick={()=>setIsMenuDropDown(prev=>prev=!prev)}>
+            <Link
+              href={"/profile"}
+              className="nav_link"
+              onClick={() => setIsMenuDropDown((prev) => (prev = !prev))}
+            >
               Profile
             </Link>
-            <button className="nav_link" onClick={() => signOut()}>
+            <button
+              className="nav_link"
+              onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })}
+            >
               Sign Out
             </button>
           </div>
           <button className="flex items-center sm:hidden">
-            <h2 className="font-extralight text-black">Hello! {session?.user?.username || session?.user?.name}</h2>
+            <h2 className="font-extralight text-black">
+              Hello! {session?.user?.username || session?.user?.name}
+            </h2>
             {/* <Image
               src={avator}
               alt="avator"
@@ -135,7 +150,10 @@ export default function Navbar() {
           {/*Normal screen size*/}
           <div className="hidden sm:flex sm:items-center sm:gap-2">
             <div className="flex items-center gap-2">
-              <button className="nav_link" onClick={() => signIn()}>
+              <button
+                className="nav_link"
+                onClick={() => signIn(undefined, { callbackUrl: "/" })}
+              >
                 Sign In
               </button>
               <Link href={"/register"} className="nav_link">
@@ -176,10 +194,17 @@ export default function Navbar() {
                 : "absolute right-0 top-16 flex -translate-y-[200%] flex-col items-end gap-2 bg-white p-5 transition duration-300 ease-in-out sm:hidden"
             }
           >
-            <button className="nav_link" onClick={() => signIn()}>
+            <button
+              className="nav_link"
+              onClick={() => signIn(undefined, { callbackUrl: "/foo" })}
+            >
               Sign In
             </button>
-            <Link href={"/register"} className="nav_link" onClick={()=>setIsMenuDropDown(prev=>prev=!prev)}>
+            <Link
+              href={"/register"}
+              className="nav_link"
+              onClick={() => setIsMenuDropDown((prev) => (prev = !prev))}
+            >
               Register
             </Link>
           </div>

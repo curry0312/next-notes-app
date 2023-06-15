@@ -48,40 +48,43 @@ export const authOptions: NextAuthOptions = {
         }
       },
     }),
-    // GoogleProvider({
-    //   clientId: String(process.env.GOOGLE_CLIENT_ID),
-    //   clientSecret: String(process.env.GOOGLE_CLIENT_SECRET),
-    // }),
-    // GithubProvider({
-    //   clientId: String(process.env.GITHUB_ID),
-    //   clientSecret: String(process.env.GITHUB_SECRET),
-    // }),
+    GoogleProvider({
+      clientId: String(process.env.GOOGLE_CLIENT_ID),
+      clientSecret: String(process.env.GOOGLE_CLIENT_SECRET),
+    }),
+    GithubProvider({
+      clientId: String(process.env.GITHUB_ID),
+      clientSecret: String(process.env.GITHUB_SECRET),
+    }),
   ],
   callbacks: {
-    // async signIn({ profile }) {
-    //   try {
-    //     await connectToDB();
-    //     const userExist = await User.findOne({
-    //       email: profile?.email,
-    //       password: "google",
-    //     });
-    //     console.log("user", userExist);
-    //     if (!userExist) {
-    //       await User.create({
-    //         userId: uuidV4(),
-    //         email: profile?.email,
-    //         username: profile?.name,
-    //         password: "google",
-    //       });
-    //       return true;
-    //     } else {
-    //       return true;
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //     return false;
-    //   }
-    // },
+    async signIn({ account, profile }) {
+      if(account?.provider == "google"){
+        try {
+          await connectToDB();
+          const existUser = await User.findOne({
+            email: profile?.email,
+            password: "google",
+          });
+          console.log("user", existUser);
+          if (!existUser) {
+            const newUser = await User.create({
+              userId: uuidV4(),
+              email: profile?.email,
+              username: profile?.name,
+              password: "google",
+            });
+            return true;
+          } else {
+            return true;
+          }
+        } catch (error) {
+          console.log(error);
+          return false;
+        }
+      }
+      return true
+    },
     async jwt({ token, user }) {
       /* Step 1: update the token based on the user object */
       if (user) {
@@ -92,10 +95,11 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
+      const userData = await User.findOne({email:session?.user?.email})
       if (token && session.user) {
-        session.user.userId = token.userId;
-        session.user.username = token.username;
-        session.user.email = token.email;
+        session.user.userId = userData.userId || token.userId;
+        session.user.username = userData.username || token.username;
+        session.user.email = userData.email || token.email;
       }
       return session;
     },
