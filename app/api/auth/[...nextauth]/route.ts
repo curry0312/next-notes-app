@@ -35,8 +35,12 @@ export const authOptions: NextAuthOptions = {
           const loginUser = await User.findOne({
             email: credentials?.email,
           });
-          const match = await bcrypt.compare(String(credentials?.password),loginUser?.password)
-          if(!match) return
+          console.log(loginUser)
+          const match = await bcrypt.compare(
+            String(credentials?.password),
+            loginUser?.password
+          );
+          if (!match) return;
           return loginUser;
         } catch (error) {
           console.log(error);
@@ -52,6 +56,32 @@ export const authOptions: NextAuthOptions = {
       clientSecret: String(process.env.GITHUB_SECRET),
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      /* Step 1: update the token based on the user object */
+      if (user) {
+        token.userId = user.userId;
+        token.username = user.username
+        token.email = user.email;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      if (token && session.user) {
+        session.user.userId = token.userId;
+        session.user.username = token.username;
+        session.user.email = token.email;
+      }
+      return session;
+    },
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
+    }
+  },
 };
 
 const handler = NextAuth(authOptions);

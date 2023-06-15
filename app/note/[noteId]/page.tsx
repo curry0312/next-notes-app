@@ -6,26 +6,15 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-
-export type Option = {
-  id: string;
-  label: string;
-};
+import { getNote } from "@/lib/getNote";
 
 export default function page() {
   const { noteId } = useParams();
-  console.log(noteId);
+  console.log("noteId:", noteId);
   const [note, setNote] = useState<notesType>();
 
   useEffect(() => {
-    get();
-    async function get() {
-      const res = await fetch(
-        `http://localhost:3000/api/note/getNote/${noteId}`
-      );
-      const targetNote = await res.json();
-      setNote(targetNote);
-    }
+    getNote(noteId, setNote);
   }, []);
 
   return (

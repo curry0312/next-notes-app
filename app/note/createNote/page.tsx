@@ -1,20 +1,18 @@
 "use client";
 
 import ReactSelect from "@/components/ReactSelect";
-import { getUserId } from "@/lib/getUserId";
+import { createNote } from "@/lib/createNote";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { v4 as uuidV4 } from "uuid";
 
-export type Option = {
+export type Tag = {
   id: string;
   label: string;
 };
 
 export default function page() {
-  const [values, setValues] = useState<Option[]>([]);
-  const [userId, setUserId] = useState<string>("");
+  const [tags, setTags] = useState<Tag[]>([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -24,39 +22,17 @@ export default function page() {
   const { data: session } = useSession();
 
   useEffect(() => {
-    async function get() {
-      if (session) {
-        const userId = await getUserId(session);
-        setUserId(userId);
-      } else {
-        push("/");
-      }
+    if (!session) {
+      push("/");
     }
-    get();
   }, [session]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    try {
-      await fetch("http://localhost:3000/api/note/createNote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          noteId: uuidV4(),
-          title: titleRef.current!.value,
-          tags: values,
-          description: descriptionRef.current!.value,
-        }),
-      });
-      titleRef.current!.value = "";
-      setValues((prev) => (prev = []));
-      descriptionRef.current!.value = "";
-    } catch (error) {
-      console.log(error);
-    }
+    await createNote({ session, titleRef, tags, descriptionRef });
+    titleRef.current!.value = "";
+    setTags((prev) => (prev = []));
+    descriptionRef.current!.value = "";
   }
   return (
     <div className="flex min-h-screen items-center justify-center font-Nunito">
@@ -74,7 +50,7 @@ export default function page() {
         <div className="flex flex-col">
           <label className="text-xl font-bold">Tag:</label>
           <div className="text-sm text-black">
-            <ReactSelect values={values} setValues={setValues} />
+            <ReactSelect tags={tags} setTags={setTags} />
           </div>
         </div>
 

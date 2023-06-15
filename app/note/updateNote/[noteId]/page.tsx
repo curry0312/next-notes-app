@@ -2,18 +2,15 @@
 
 import { notesType } from "@/app/page";
 import ReactSelect from "@/components/ReactSelect";
+import { updateNote } from "@/lib/updateNote";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
-
-export type Option = {
-  id: string;
-  label: string;
-};
+import { Tag } from "../../createNote/page";
 
 export default function page() {
   const { noteId } = useParams();
-  const [values, setValues] = useState<Option[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const [note, setNote] = useState<notesType>();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -27,36 +24,22 @@ export default function page() {
       const targetNote = await res.json();
       setNote(targetNote);
       console.log(targetNote);
-      setValues(targetNote.tags);
+      setTags(targetNote.tags);
     }
   }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    try {
-      await fetch(`http://localhost:3000/api/note/updateNote/${noteId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: titleRef.current!.value,
-          tags: values,
-          description: descriptionRef.current!.value,
-        }),
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await updateNote({noteId,titleRef,tags,descriptionRef})
   }
   return (
-    <div className="flex justify-center items-center font-Nunito min-h-screen">
+    <div className="flex min-h-screen items-center justify-center font-Nunito">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col gap-4 bg-blue-500 px-5 py-10 rounded-2xl min-w-[70%]"
+        className="flex min-w-[70%] flex-col gap-4 rounded-2xl bg-blue-500 px-5 py-10"
       >
         <div className="flex flex-col">
-          <label htmlFor="title" className="font-bold text-xl">
+          <label htmlFor="title" className="text-xl font-bold">
             Title:
           </label>
           <input
@@ -69,14 +52,14 @@ export default function page() {
         </div>
 
         <div className="flex flex-col">
-          <label className="font-bold text-xl">Tag:</label>
-          <div className="text-black text-sm">
-            <ReactSelect values={values} setValues={setValues} />
+          <label className="text-xl font-bold">Tag:</label>
+          <div className="text-sm text-black">
+            <ReactSelect tags={tags} setTags={setTags} />
           </div>
         </div>
 
         <div className="flex flex-col">
-          <label htmlFor="description" className="font-bold text-xl">
+          <label htmlFor="description" className="text-xl font-bold">
             description:
           </label>
           <textarea
@@ -91,20 +74,20 @@ export default function page() {
 
         <button
           type="submit"
-          className="bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out"
+          className="rounded-xl bg-blue-300 px-4 py-2 transition duration-300 ease-in-out hover:bg-blue-600 hover:text-black"
         >
           Update Note
         </button>
         <div className="flex gap-5">
           <Link
             href="/"
-            className="flex-1 text-center bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out"
+            className="flex-1 rounded-xl bg-blue-300 px-4 py-2 text-center transition duration-300 ease-in-out hover:bg-blue-600 hover:text-black"
           >
             Back to Home Page
           </Link>
           <Link
             href={`/note/${note?.noteId}`}
-            className="flex-1 text-center bg-blue-300 px-4 py-2 rounded-xl hover:bg-blue-600 hover:text-black transition duration-300 ease-in-out"
+            className="flex-1 rounded-xl bg-blue-300 px-4 py-2 text-center transition duration-300 ease-in-out hover:bg-blue-600 hover:text-black"
           >
             Back to Note
           </Link>

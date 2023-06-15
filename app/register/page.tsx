@@ -5,8 +5,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ErrorMessage } from "@hookform/error-message";
 import convertToBase64 from "@/utili/convertToBase64";
-import Image from "next/image";
-import avator from "@/public/avator.jpg";
+// import Image from "next/image";
+// import avator from "@/public/avator.jpg";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
@@ -40,12 +40,12 @@ export default function page() {
     console.log("formdata:",formdata);
     let userImage;
     try {
-      if (!image[0]) {
-        userImage = "";
-      } else {
-        const imageInBase64 = await convertToBase64(image[0]);
-        userImage = imageInBase64;
-      }
+      // if (!image[0]) {
+      //   userImage = "";
+      // } else {
+      //   const imageInBase64 = await convertToBase64(image[0]);
+      //   userImage = imageInBase64;
+      // }
       await fetch("http://localhost:3000/api/user/register", {
         method: "POST",
         headers: {
@@ -56,7 +56,7 @@ export default function page() {
           email,
           password,
           username,
-          image: userImage,
+          // image: userImage,
         }),
       });
       push("/");
@@ -69,9 +69,9 @@ export default function page() {
     <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-[50%] mx-auto bg-green-500 px-4 py-4 flex flex-col gap-5 rounded-xl"
+        className="min-w-[40%] min-h-[60%] mx-auto bg-green-500 px-4 py-4 flex flex-col gap-5 rounded-xl"
       >
-        <h1 className="text-2xl text-center">Register</h1>
+        <h1 className="text-5xl font-bold text-center">Register</h1>
         <div className="flex flex-col">
           <label htmlFor="email">Email:</label>
           <input
@@ -108,7 +108,7 @@ export default function page() {
             <ErrorMessage errors={errors} name="username" />
           </div>
         </div>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <label htmlFor="image">image:</label>
           <Image
             src={base64Image || avator}
@@ -125,8 +125,8 @@ export default function page() {
             className="input"
             onChange={onUpload}
           />
-        </div>
-        <button className="bg-green-300 px-4 py-2 rounded-lg text-black font-bold hover:bg-green-600">
+        </div> */}
+        <button className="bg-green-300 px-4 py-2 rounded-lg text-black font-bold mt-auto hover:bg-green-600">
           submit
         </button>
       </form>

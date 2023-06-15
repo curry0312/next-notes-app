@@ -8,7 +8,6 @@ import avator from "../public/avator.jpg";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isUserLogin, setIsUserLogin] = useState<boolean>(false);
@@ -63,13 +62,14 @@ export default function Navbar() {
               </button>
             </div>
             <button className="flex items-center">
-              <Image
+              <h2 className="font-extralight text-black">Hello! {session?.user?.username}</h2>
+              {/* <Image
                 src={avator}
                 alt="avator"
                 width={40}
                 height={40}
                 className="rounded-full"
-              />
+              /> */}
               <div
                 className="sm:hidden"
                 onClick={() =>
@@ -106,13 +106,14 @@ export default function Navbar() {
             </button>
           </div>
           <button className="flex items-center sm:hidden">
-            <Image
+            <h2 className="font-extralight text-black">Welcomes! customer</h2>
+            {/* <Image
               src={avator}
               alt="avator"
               width={40}
               height={40}
               className="rounded-full"
-            />
+            /> */}
             <div
               className="sm:hidden"
               onClick={() =>
@@ -143,13 +144,14 @@ export default function Navbar() {
               </Link>
             </div>
             <button className="flex items-center">
-              <Image
+              <h2 className="font-extralight text-black">Welcomes! customer</h2>
+              {/* <Image
                 src={avator}
                 alt="avator"
                 width={40}
                 height={40}
                 className="rounded-full"
-              />
+              /> */}
               <div
                 className="sm:hidden"
                 onClick={() =>
@@ -183,13 +185,14 @@ export default function Navbar() {
             </Link>
           </div>
           <button className="flex items-center sm:hidden">
-            <Image
+            <h2 className="font-extralight text-black">Welcomes! customer</h2>
+            {/* <Image
               src={avator}
               alt="avator"
               width={40}
               height={40}
               className="rounded-full"
-            />
+            /> */}
             <div
               className="sm:hidden"
               onClick={() =>
