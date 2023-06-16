@@ -53,7 +53,7 @@ export default function page() {
       //   const imageInBase64 = await convertToBase64(image[0]);
       //   userImage = imageInBase64;
       // }
-      await fetch("http://localhost:3000/api/user/register", {
+      await fetch("/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

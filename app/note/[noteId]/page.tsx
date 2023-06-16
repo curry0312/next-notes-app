@@ -14,7 +14,7 @@ export default function page() {
   const [note, setNote] = useState<notesType>();
 
   useEffect(() => {
-    getNote(noteId, setNote);
+    getNote({noteId, setNote});
   }, []);
 
   return (

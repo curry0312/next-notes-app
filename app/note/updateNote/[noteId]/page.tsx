@@ -1,36 +1,37 @@
 "use client";
 
-import { notesType } from "@/app/page";
+import { notesType, tag } from "@/app/page";
 import ReactSelect from "@/components/ReactSelect";
+import { getNote } from "@/lib/getNote";
 import { updateNote } from "@/lib/updateNote";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { Tag } from "../../createNote/page";
 
 export default function page() {
   const { noteId } = useParams();
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<tag[]>([]);
   const [note, setNote] = useState<notesType>();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    get();
-    async function get() {
-      const res = await fetch(
-        `http://localhost:3000/api/note/getNote/${noteId}`
-      );
-      const targetNote = await res.json();
-      setNote(targetNote);
-      console.log(targetNote);
-      setTags(targetNote.tags);
-    }
+    getNote({ noteId, setNote, setTags });
+    // get();
+    // async function get() {
+    //   const res = await fetch(
+    //     `/api/note/getNote/${noteId}`
+    //   );
+    //   const targetNote = await res.json();
+    //   setNote(targetNote);
+    //   console.log(targetNote);
+    //   setTags(targetNote.tags);
+    // }
   }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    await updateNote({noteId,titleRef,tags,descriptionRef})
+    await updateNote({ noteId, titleRef, tags, descriptionRef });
   }
   return (
     <div className="flex min-h-screen items-center justify-center font-Nunito">

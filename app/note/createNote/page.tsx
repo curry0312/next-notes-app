@@ -1,18 +1,14 @@
 "use client";
 
+import { tag } from "@/app/page";
 import ReactSelect from "@/components/ReactSelect";
 import { createNote } from "@/lib/createNote";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
-export type Tag = {
-  id: string;
-  label: string;
-};
-
 export default function page() {
-  const [tags, setTags] = useState<Tag[]>([]);
+  const [tags, setTags] = useState<tag[]>([]);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
@@ -35,10 +31,10 @@ export default function page() {
     descriptionRef.current!.value = "";
   }
   return (
-    <div className="sm:flex sm:items-center sm:justify-center font-Nunito min-h-screen">
+    <div className="min-h-screen font-Nunito sm:flex sm:items-center sm:justify-center">
       <form
         onSubmit={handleSubmit}
-        className="flex min-w-[100%] min-h-screen flex-col gap-4 bg-blue-500 px-5 py-10 sm:rounded-2xl sm:min-w-[70%] sm:min-h-0"
+        className="flex min-h-screen min-w-[100%] flex-col gap-4 bg-blue-500 px-5 py-10 sm:min-h-0 sm:min-w-[70%] sm:rounded-2xl"
       >
         <div className="flex flex-col">
           <label htmlFor="title" className="text-xl font-bold">
