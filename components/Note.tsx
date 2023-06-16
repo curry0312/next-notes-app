@@ -44,7 +44,7 @@ export default function Note({ note }: NoteProps) {
         </div>
         <Link
           href={`/note/${note.noteId}`}
-          className="rounded-lg border border-blue-400 px-4 py-2 font-Nunito text-blue-400 hover:bg-blue-400 hover:text-white transtion duration-150 ease-in-out"
+          className="mt-auto rounded-lg border border-blue-400 px-4 py-2 font-Nunito text-blue-400 hover:bg-blue-400 hover:text-white transtion duration-150 ease-in-out"
         >
           show setail
         </Link>
