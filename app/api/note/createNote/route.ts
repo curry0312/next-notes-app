@@ -1,11 +1,5 @@
 import Note from "@/models/note";
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export async function POST(request: Request) {
   try {
     const { userId, noteId, title, tags, description } = await request.json();
