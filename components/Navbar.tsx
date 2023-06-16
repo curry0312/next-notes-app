@@ -54,7 +54,7 @@ export default function Navbar() {
               <button
                 className="nav_link"
                 onClick={() => {
-                  signOut({ callbackUrl: "http://localhost:3000/" });
+                  signOut({ callbackUrl: "/" });
                 }}
               >
                 Sign Out
@@ -112,7 +112,7 @@ export default function Navbar() {
             </Link>
             <button
               className="nav_link"
-              onClick={() => signOut({ callbackUrl: "http://localhost:3000/" })}
+              onClick={() => signOut({ callbackUrl: "/" })}
             >
               Sign Out
             </button>
@@ -196,7 +196,7 @@ export default function Navbar() {
           >
             <button
               className="nav_link"
-              onClick={() => signIn(undefined, { callbackUrl: "/foo" })}
+              onClick={() => signIn(undefined, { callbackUrl: "/" })}
             >
               Sign In
             </button>
