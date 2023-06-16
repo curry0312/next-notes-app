@@ -16,7 +16,7 @@ export async function createNote({
   descriptionRef,
 }: createNoteParams):Promise<void> {
   try {
-    await fetch("http://localhost:3000/api/note/createNote", {
+    await fetch("/api/note/createNote", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

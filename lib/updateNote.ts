@@ -15,7 +15,7 @@ export async function updateNote({
   descriptionRef,
 }: updateNoteParams):Promise<void> {
   try {
-    await fetch(`http://localhost:3000/api/note/updateNote/${noteId}`, {
+    await fetch(`/api/note/updateNote/${noteId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

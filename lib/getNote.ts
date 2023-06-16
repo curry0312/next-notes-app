@@ -5,7 +5,7 @@ export async function getNote(
   setNote: (note: notesType) => void
 ): Promise<void> {
   try {
-    const res = await fetch(`http://localhost:3000/api/note/getNote/${noteId}`);
+    const res = await fetch(`/api/note/getNote/${noteId}`);
     const targetNote = await res.json();
     setNote(targetNote);
   } catch (error) {
