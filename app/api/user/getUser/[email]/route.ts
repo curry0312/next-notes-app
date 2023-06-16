@@ -1,12 +1,6 @@
 import { connectToDB } from '@/db/connectToDB';
 import User from "@/models/user";
 
-// export const config = {
-//   api: {
-//     bodyParser: true,
-//   },
-// };
-
 export async function GET(
   request: Request,
   { params }: { params: { email: string } }
