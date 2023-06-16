@@ -8,12 +8,6 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { v4 as uuidV4 } from "uuid";
 
-export const config = {
-  api: {
-    responseLimit: false,
-  },
-};
-
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
