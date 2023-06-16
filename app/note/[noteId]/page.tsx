@@ -19,9 +19,9 @@ export default function page() {
 
   return (
     <div className="relative min-h-screen font-Nunito">
-      <Link href={".."}>
-        <IconButton className="absolute right-2 top-2 text-white">
-          <CloseIcon sx={{ fontSize: "40px" }} />
+      <Link href={".."} className="absolute right-2 top-2 text-white">
+        <IconButton>
+          <CloseIcon sx={{ fontSize: "40px", color:"white" }} />
         </IconButton>
       </Link>
       {/*note content*/}
