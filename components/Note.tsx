@@ -16,14 +16,14 @@ export default function Note({ note }: NoteProps) {
   return (
     <div
       key={note.noteId}
-      className="transtion relative flex flex-col rounded-2xl bg-white px-4 py-4 text-center duration-200 ease-in-out hover:scale-105"
+      className="flex flex-col transtion relative rounded-2xl bg-white px-4 py-4 text-center duration-200 ease-in-out hover:scale-105"
     >
       <div className="flex justify-end">
         <IconButton onClick={() => handleNoteDelete(note)}>
           <CloseIcon sx={{ fontSize: "20px", color: "black" }} />
         </IconButton>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col h-full gap-1">
         <h1 className="break-words font-Nunito text-2xl font-bold text-black line-clamp-1">
           {note.title}
         </h1>
@@ -44,7 +44,7 @@ export default function Note({ note }: NoteProps) {
         </div>
         <Link
           href={`/note/${note.noteId}`}
-          className="mt-auto rounded-lg border border-blue-400 px-4 py-2 font-Nunito text-blue-400 hover:bg-blue-400 hover:text-white transtion duration-150 ease-in-out"
+          className="rounded-lg border border-blue-400 px-4 py-2 font-Nunito text-blue-400 hover:bg-blue-400 hover:text-white transtion duration-150 ease-in-out"
         >
           show setail
         </Link>
