@@ -3,7 +3,7 @@ import User from "@/models/user";
 import type { NextAuthOptions } from "next-auth";
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
+// import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { v4 as uuidV4 } from "uuid";
@@ -46,10 +46,10 @@ const authOptions: NextAuthOptions = {
       clientId: String(process.env.GOOGLE_CLIENT_ID),
       clientSecret: String(process.env.GOOGLE_CLIENT_SECRET),
     }),
-    GithubProvider({
-      clientId: String(process.env.GITHUB_ID),
-      clientSecret: String(process.env.GITHUB_SECRET),
-    }),
+    // DiscordProvider({
+    //   clientId: String(process.env.DISCORD_CLIENT_ID),
+    //   clientSecret: String(process.env.DISCORD_CLIENT_SECRET),
+    // }),
   ],
   callbacks: {
     async signIn({ account, profile }) {
