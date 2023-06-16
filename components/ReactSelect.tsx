@@ -3,10 +3,10 @@
 import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
 import { v4 as uuidV4 } from "uuid";
-import { Tag } from "@/app/note/createNote/page";
+import { tag } from "@/app/page";
 
 type ReactSelectProps = {
-  tags: Tag[];
+  tags: tag[];
   setTags: any;
 };
 
@@ -18,15 +18,15 @@ export default function ReactSelect({ tags, setTags }: ReactSelectProps) {
       className="z-0"
       components={animatedComponents}
       isMulti
-      options={tags.map((value: Tag) => {
+      options={tags.map((value: tag) => {
         return { label: value.label, value: value.id };
       })}
-      value={tags.map((value: Tag) => {
+      value={tags.map((value: tag) => {
         return { label: value.label, value: value.id };
       })}
       onCreateOption={(label: string) => {
         const newTag = { id: uuidV4(), label: label };
-        setTags((prev: Tag[]) => {
+        setTags((prev: tag[]) => {
           return [...prev, newTag];
         });
       }}
