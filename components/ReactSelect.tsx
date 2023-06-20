@@ -18,9 +18,9 @@ export default function ReactSelect({ tags, setTags }: ReactSelectProps) {
       className="z-0"
       components={animatedComponents}
       isMulti
-      options={tags.map((value: tag) => {
-        return { label: value.label, value: value.id };
-      })}
+      // options={tags.map((value: tag) => {
+      //   return { label: value.label, value: value.id };
+      // })}
       value={tags.map((value: tag) => {
         return { label: value.label, value: value.id };
       })}
