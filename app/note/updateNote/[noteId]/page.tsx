@@ -7,6 +7,7 @@ import { updateNote } from "@/lib/updateNote";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function page() {
   const { noteId } = useParams();
@@ -17,21 +18,22 @@ export default function page() {
 
   useEffect(() => {
     getNote({ noteId, setNote, setTags });
-    // get();
-    // async function get() {
-    //   const res = await fetch(
-    //     `/api/note/getNote/${noteId}`
-    //   );
-    //   const targetNote = await res.json();
-    //   setNote(targetNote);
-    //   console.log(targetNote);
-    //   setTags(targetNote.tags);
-    // }
   }, []);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    await updateNote({ noteId, titleRef, tags, descriptionRef });
+    const updateNotePromise = updateNote({
+      noteId,
+      titleRef,
+      tags,
+      descriptionRef,
+    });
+    toast.promise(updateNotePromise, {
+      loading: "Updating note...",
+      success: "Updating completely!",
+      error: "Error when updating note...",
+    });
+    updateNotePromise.then().catch((err) => [console.log(err)]);
   }
   return (
     <div className="flex min-h-screen items-center justify-center font-Nunito">

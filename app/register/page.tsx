@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const schema = yup.object().shape({
   email: yup.string().email().required("Email is required!"),
@@ -53,7 +54,7 @@ export default function page() {
       //   const imageInBase64 = await convertToBase64(image[0]);
       //   userImage = imageInBase64;
       // }
-      await fetch("/api/user/register", {
+      const registerPromise = fetch("/api/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +67,16 @@ export default function page() {
           // image: userImage,
         }),
       });
-      push("/");
+      toast.promise(registerPromise, {
+        loading: 'Creating...',
+        success: 'Register completely!',
+        error: 'Error when fetching',
+      });
+      registerPromise.then(()=>{
+        push("/");
+      }).catch((err)=>{
+        console.log(err)
+      })
     } catch (error) {
       console.log(error);
     }

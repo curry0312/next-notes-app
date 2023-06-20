@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+
 
 export default function page() {
   const [tags, setTags] = useState<tag[]>([]);
@@ -26,10 +28,19 @@ export default function page() {
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    await createNote({ session, titleRef, tags, descriptionRef });
-    titleRef.current!.value = "";
-    setTags((prev) => (prev = []));
-    descriptionRef.current!.value = "";
+    const createNotePromise = createNote({ session, titleRef, tags, descriptionRef });
+    toast.promise(createNotePromise, {
+      loading: 'Creating note...',
+      success: 'Create completely!',
+      error: 'Error when creating note...',
+    });
+    createNotePromise.then(()=>{
+      titleRef.current!.value = "";
+      setTags((prev) => (prev = []));
+      descriptionRef.current!.value = "";
+    }).catch((err)=>[
+      console.log(err)
+    ])
   }
   return (
     <div className="min-h-screen font-Nunito sm:flex sm:items-center sm:justify-center">
