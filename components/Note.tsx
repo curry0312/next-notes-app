@@ -23,34 +23,42 @@ export default function Note({ note }: NoteProps) {
           : "transtion relative flex flex-col rounded-2xl bg-white px-4 py-4 text-center duration-200 ease-in-out hover:scale-105"
       }
     >
-      <div className="flex justify-end">
-        {isNoteGetClicked === true ? (
-          <>
-            <IconButton
-              onClick={() =>
-                setIsNoteGetClicked((current) => (current = !current))
-              }
-            >
-              <CloseIcon sx={{ fontSize: "20px", color: "black" }} />
-            </IconButton>
-          </>
-        ) : (
-          <></>
-        )}
-      </div>
       <div className="flex h-full flex-col gap-1">
+        <div className="flex justify-end">
+          {isNoteGetClicked === true ? (
+            <>
+              <IconButton
+                onClick={() =>
+                  setIsNoteGetClicked((current) => (current = !current))
+                }
+              >
+                <CloseIcon sx={{ fontSize: "20px", color: "black" }} />
+              </IconButton>
+            </>
+          ) : (
+            <></>
+          )}
+        </div>
         <h1 className="break-words font-Nunito text-2xl font-bold text-black line-clamp-1">
           {note.title}
         </h1>
-        <p className="my-4 break-words px-2 font-Nunito text-black line-clamp-3">
+
+        <p
+          className={
+            isNoteGetClicked === true
+              ? "overflow-scroll h-[550px] break-words px-2 text-left font-Nunito text-xl text-black"
+              : "break-words px-2 text-left font-Nunito text-xl text-black line-clamp-3"
+          }
+        >
           {note.description}
         </p>
+
         <div className="mt-auto flex flex-wrap items-center gap-2">
           {note.tags.map((tag) => {
             return (
               <span
                 key={tag.id}
-                className="rounded-3xl bg-blue-500 px-4 py-1 font-Nunito font-bold"
+                className="rounded-3xl bg-blue-500 px-4 py-1 text-xs font-Nunito font-bold"
               >
                 {tag.label}
               </span>
@@ -65,7 +73,7 @@ export default function Note({ note }: NoteProps) {
               onClick={() =>
                 setIsNoteGetClicked((current) => (current = !current))
               }
-              className="transtion rounded-lg border border-blue-400 px-4 py-2 font-Nunito text-blue-400 duration-150 ease-in-out hover:bg-blue-400 hover:text-white"
+              className="transtion rounded-xl border border-blue-400 px-4 py-2 font-Nunito text-blue-400 duration-150 ease-in-out hover:bg-blue-400 hover:text-white"
             >
               Show Note
             </button>

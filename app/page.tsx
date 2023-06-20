@@ -4,7 +4,7 @@ import Note from "@/components/Note";
 import { getAllNotes } from "@/lib/getAllNotes";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 
 export type tag = {
   id: string;
@@ -38,7 +38,6 @@ export default function Home() {
       note.title.toLowerCase().includes(filteredText.toLowerCase())
     );
   });
-
   return (
     <section className="px-4 py-4">
       <div className="flex flex-col gap-5 text-center font-bold">
@@ -48,24 +47,39 @@ export default function Home() {
           forever as well
         </span>
       </div>
-      <>
-        {/*search bar section*/}
-        <div className="flex items-center justify-center py-5">
-          <input
-            type="text"
-            placeholder="Search the notes..."
-            className="input w-[50%]"
-            onChange={(e) => setFilteredText(e.target.value)}
-          />
-        </div>
-        {/*Notes display section*/}
-        <div className="grid grid-cols-1 gap-4 px-4 py-5 text-white sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
-          {notes.length !== 0 &&
-            filteredNotes.map((note) => {
-              return <Note key={note.noteId} note={note} />;
-            })}
-        </div>
-      </>
+
+      {/*search bar section*/}
+      <div className="flex items-center justify-center py-5">
+        <input
+          type="text"
+          placeholder="Search the notes..."
+          className="input w-[50%]"
+          onChange={(e) => setFilteredText(e.target.value)}
+        />
+      </div>
+
+      {/*Notes display section*/}
+      {!session ? (
+        <>
+          <div className="h-full text-center text-xl font-bold text-white">
+            Sign in or create you own account
+          </div>
+        </>
+      ) : (
+        <>
+          {notes.length == 0 ? (
+            <div className="h-full text-center text-xl font-bold text-white">
+              You don't have any notes yet. Let's create your notes now!!
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-4 px-4 py-5 text-white sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
+              {filteredNotes.map((note) => {
+                return <Note key={note.noteId} note={note} />;
+              })}
+            </div>
+          )}
+        </>
+      )}
     </section>
   );
 }
