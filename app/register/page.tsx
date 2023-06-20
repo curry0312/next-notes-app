@@ -76,7 +76,7 @@ export default function page() {
     <div className="sm:flex sm:justify-center sm:items-center h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="sm:min-w-[60%] sm:min-h-[60%] min-h-screen mx-auto bg-green-500 px-4 py-4 flex flex-col gap-5 sm:rounded-xl"
+        className="sm:min-w-[60%] sm:min-h-[60%] min-h-screen mx-auto bg-green-500 px-4 py-4 flex flex-col gap-5"
       >
         <h1 className="text-5xl font-bold text-center">Register</h1>
         <div className="flex flex-col">

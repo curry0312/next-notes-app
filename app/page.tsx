@@ -4,6 +4,7 @@ import Note from "@/components/Note";
 import { getAllNotes } from "@/lib/getAllNotes";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
 
 export type tag = {
   id: string;

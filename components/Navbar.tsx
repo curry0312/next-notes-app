@@ -48,9 +48,6 @@ export default function Navbar() {
               <Link href={"/note/createNote"} className="nav_link">
                 Create Note
               </Link>
-              <Link href={"/profile"} className="nav_link">
-                Profile
-              </Link>
               <button
                 className="nav_link"
                 onClick={() => {
@@ -102,13 +99,6 @@ export default function Navbar() {
               onClick={() => setIsMenuDropDown((prev) => (prev = !prev))}
             >
               Create Note
-            </Link>
-            <Link
-              href={"/profile"}
-              className="nav_link"
-              onClick={() => setIsMenuDropDown((prev) => (prev = !prev))}
-            >
-              Profile
             </Link>
             <button
               className="nav_link"

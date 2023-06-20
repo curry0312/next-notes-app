@@ -4,6 +4,7 @@ import { tag } from "@/app/page";
 import ReactSelect from "@/components/ReactSelect";
 import { createNote } from "@/lib/createNote";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
@@ -69,6 +70,13 @@ export default function page() {
         >
           Create Note
         </button>
+        <Link
+          href={".."}
+          type="submit"
+          className="rounded-xl bg-red-600 px-4 py-2 text-white transition duration-300 ease-in-out text-center hover:bg-red-300 hover:text-black"
+        >
+          Back to previous page
+        </Link>
       </form>
     </div>
   );
