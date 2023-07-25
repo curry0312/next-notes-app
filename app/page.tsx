@@ -2,9 +2,9 @@
 
 import Note from "@/components/Note";
 import { getAllNotes } from "@/lib/getAllNotes";
+import { data } from "autoprefixer";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 
 export type tag = {
   id: string;
@@ -24,7 +24,8 @@ export default function Home() {
 
   const [filteredText, setFilteredText] = useState<string>("");
 
-  const { data: session } = useSession();
+  const {status,data:session} = useSession();
+  console.log(data)
 
   useEffect(() => {
     if (session) {
@@ -38,6 +39,8 @@ export default function Home() {
       note.title.toLowerCase().includes(filteredText.toLowerCase())
     );
   });
+
+  if(!session) return <div className="flex justify-center items-center h-screen w-full text-4xl font-bold">Sign in to take notes!</div>
   return (
     <section className="px-4 py-4">
       <div className="flex flex-col gap-5 text-center font-bold">
